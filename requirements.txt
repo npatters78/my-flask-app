@@ -1,1 +1,1 @@
-echo Flask==2.0.3 > requirements.txt
+Flask==2.0.3
