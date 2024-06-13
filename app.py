@@ -1,11 +1,11 @@
 import os
 from flask import Flask, request, jsonify
 import openai
-import flask
 
 app = Flask(__name__)
 
 # Log Flask version
+import flask
 print(f"Flask version: {flask.__version__}")
 
 # Retrieve the API key from the environment variable
@@ -19,7 +19,7 @@ def chat():
     user_input = request.json.get('input')
     if user_input is None:
         return jsonify({"error": "No input provided"}), 400
-    
+
     try:
         response = openai.Completion.create(
             engine="davinci",
@@ -29,6 +29,10 @@ def chat():
         return jsonify(response.choices[0].text.strip())
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+@app.route('/api/version', methods=['GET'])
+def version():
+    return jsonify({"flask_version": flask.__version__})
 
 if __name__ == '__main__':
     app.run()
