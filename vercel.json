@@ -1,9 +1,9 @@
 {
-  "version": 2,
   "builds": [
     { "src": "app.py", "use": "@vercel/python" }
   ],
-  "routes": [
-    { "src": "/api/chatgpt", "dest": "/app.py" }
-  ]
+  "env": {
+    "OPENAI_API_KEY": "@openai_api_key"
+  },
+  "pythonVersion": "3.12"
 }
