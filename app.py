@@ -4,10 +4,8 @@ import openai
 
 app = Flask(__name__)
 
-# Step 1: Retrieve the API key from the environment variable
+# Retrieve the API key from the environment variable
 openai_api_key = os.getenv('OPENAI_API_KEY')
-
-# Step 2: Set the OpenAI API key for use in the application
 openai.api_key = openai_api_key
 
 @app.route('/api/chat', methods=['POST'])
