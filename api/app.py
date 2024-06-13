@@ -4,12 +4,13 @@ app = Flask(__name__)
 
 @app.route('/api/chatgpt', methods=['POST'])
 def chatgpt():
-    data = request.json
-    message = data.get('message', '')
-    # Here you would add your logic to interact with ChatGPT
-    response = {"reply": f"Received: {message}"}
-    return jsonify(response)
+    try:
+        data = request.json
+        message = data.get('message', '')
+        response = {"reply": f"Received: {message}"}
+        return jsonify(response)
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
-
+    app.run()
