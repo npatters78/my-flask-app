@@ -22,7 +22,7 @@ def chat():
 
     try:
         response = openai.Completion.create(
-            engine="davinci",
+            engine="text-davinci-003",  # Updated model
             prompt=user_input,
             max_tokens=150
         )
