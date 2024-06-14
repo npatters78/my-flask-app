@@ -21,12 +21,12 @@ def chat():
         return jsonify({"error": "No input provided"}), 400
 
     try:
-        response = openai.Completion.create(
-            engine="text-davinci-003",  # Updated model
-            prompt=user_input,
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",  # Updated model
+            messages=[{"role": "user", "content": user_input}],
             max_tokens=150
         )
-        return jsonify(response.choices[0].text.strip())
+        return jsonify(response.choices[0].message['content'].strip())
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
