@@ -1,12 +1,17 @@
 import os
+import logging
 from flask import Flask, request, jsonify
 import openai
 
 app = Flask(__name__)
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
 # Log Flask version
 import flask
-print(f"Flask version: {flask.__version__}")
+logger.info(f"Flask version: {flask.__version__}")
 
 # Retrieve the API key from the environment variable
 openai_api_key = os.getenv('OPENAI_API_KEY')
@@ -21,14 +26,17 @@ def chat():
         return jsonify({"error": "No input provided"}), 400
 
     try:
+        logger.info(f"User input: {user_input}")
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",  # Updated model
             messages=[{"role": "user", "content": user_input}],
             max_tokens=150
         )
+        logger.info(f"Response: {response}")
         return jsonify(response.choices[0].message['content'].strip())
     except Exception as e:
-        return jsonify({"error": str(e)}), 500
+        logger.error(f"Error communicating with OpenAI: {e}")
+        return jsonify({"error": f"Error communicating with OpenAI: {e}"}), 500
 
 @app.route('/api/version', methods=['GET'])
 def version():
