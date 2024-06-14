@@ -8,6 +8,9 @@ app = Flask(__name__)
 import flask
 print(f"Flask version: {flask.__version__}")
 
+# Additional logging for deployment trigger
+print("Deployment triggered")
+
 # Retrieve the API key from the environment variable
 openai_api_key = os.getenv('OPENAI_API_KEY')
 if openai_api_key is None:
@@ -36,6 +39,3 @@ def version():
 
 if __name__ == '__main__':
     app.run()
-
-# Minor change to trigger redeployment
-
